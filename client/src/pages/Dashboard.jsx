@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { profileService, resumeService } from '../services/api';
+import { profileService } from '../services/api';
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
@@ -67,7 +67,7 @@ const Dashboard = () => {
             🎉 Welcome to Your Dashboard!
           </h2>
           <p className="text-gray-300 text-lg">
-            Let's create an amazing resume and portfolio that showcases your skills and experience.
+            Let&apos;s create an amazing resume and portfolio that showcases your skills and experience.
           </p>
         </div>
 

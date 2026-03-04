@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -139,7 +139,7 @@ const Home = () => {
             to="/register"
             className="inline-block bg-gradient-to-r from-pink-500 to-indigo-500 text-white px-10 py-4 rounded-lg font-bold text-lg hover:scale-105 transform transition duration-200"
           >
-            Start Building Now - It's Free!
+            Start Building Now - It&apos;s Free!
           </Link>
         </div>
       </div>

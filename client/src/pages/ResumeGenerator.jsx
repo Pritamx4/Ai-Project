@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { resumeService } from '../services/api';
 
@@ -108,7 +108,7 @@ const ResumeGenerator = () => {
           <ul className="text-gray-300 space-y-2">
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>Make sure you've completed your profile with all relevant information</span>
+              <span>Make sure you&apos;ve completed your profile with all relevant information</span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
@@ -116,7 +116,7 @@ const ResumeGenerator = () => {
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>Include specific skills and technologies you've worked with</span>
+              <span>Include specific skills and technologies you&apos;ve worked with</span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
