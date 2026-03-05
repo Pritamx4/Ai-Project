@@ -38,25 +38,25 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-dark-bg">
-      <div className="w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen container-padding bg-primary">
+      <div className="w-full max-w-md animate-fadeInUp">
         {/* Back to Home */}
         <Link
           to="/"
-          className="inline-flex items-center mb-8 text-gray-300 hover:text-white"
+          className="inline-flex items-center mb-6 text-sm transition-all sm:mb-8 text-muted hover:text-primary"
         >
           ← Back to Home
         </Link>
 
         {/* Login Card */}
-        <div className="p-8 mt-4 glass rounded-2xl">
-          <div className="mb-8 text-center">
-            <h2 className="mb-2 text-3xl font-bold text-white">Welcome Back!</h2>
-            <p className="text-gray-400">Login to continue building your future</p>
+        <div className="glass" style={{ padding: 'var(--space-lg)', borderRadius: 'var(--radius-lg)' }}>
+          <div className="mb-6 text-center sm:mb-8">
+            <h2 className="text-2xl font-bold sm:text-3xl section-title" style={{ marginBottom: 'var(--space-sm)' }}>Welcome Back!</h2>
+            <p className="text-sm sm:text-base text-muted">Login to continue building your future</p>
           </div>
 
           {error && (
-            <div className="px-4 py-3 mb-4 text-red-200 bg-red-500 border border-red-500 rounded-lg bg-opacity-20">
+            <div className="px-4 py-3 mb-4 text-red-200 bg-red-500 border border-red-500 bg-opacity-20" style={{ borderRadius: 'var(--radius-md)' }}>
               {error}
             </div>
           )}
@@ -64,7 +64,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-400">
+              <label htmlFor="email" className="block text-sm font-medium text-muted" style={{ marginBottom: 'var(--space-sm)' }}>
                 Email Address
               </label>
               <input
@@ -74,14 +74,14 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 text-white placeholder-gray-500 bg-dark-surface border border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                className="input-field"
                 placeholder="Enter your email"
               />
             </div>
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-400">
+              <label htmlFor="password" className="block text-sm font-medium text-muted" style={{ marginBottom: 'var(--space-sm)' }}>
                 Password
               </label>
               <input
@@ -91,7 +91,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 text-white placeholder-gray-500 bg-dark-surface border border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                className="input-field"
                 placeholder="Enter your password"
               />
             </div>
@@ -100,7 +100,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 font-semibold text-white transition duration-200 rounded-lg bg-dark-hover border border-dark-border hover:bg-dark-card disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 font-semibold btn-premium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
@@ -108,9 +108,9 @@ const Login = () => {
 
           {/* Register Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-400">
+            <p className="text-sm sm:text-base text-muted">
               Don&apos;t have an account?{' '}
-              <Link to="/register" className="font-semibold text-gray-300 hover:text-white">
+              <Link to="/register" className="font-semibold transition-all text-secondary hover:text-primary">
                 Sign up
               </Link>
             </p>

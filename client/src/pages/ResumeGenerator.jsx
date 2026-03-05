@@ -27,26 +27,26 @@ const ResumeGenerator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-6 bg-dark-bg container-padding sm:py-12">
       <div className="max-w-4xl mx-auto">
         <button
           onClick={() => navigate('/dashboard')}
-          className="text-gray-300 hover:text-white mb-8 inline-flex items-center"
+          className="inline-flex items-center mb-6 text-sm text-gray-300 transition sm:mb-8 hover:text-white"
         >
           ← Back to Dashboard
         </button>
 
-        <div className="glass p-8 rounded-2xl">
+        <div className="glass" style={{ padding: 'var(--space-lg)', borderRadius: 'var(--radius-lg)' }}>
           <div className="text-center">
-            <div className="text-6xl mb-6">🤖</div>
-            <h1 className="text-4xl font-bold text-white mb-4">
+            <div className="mb-4 text-4xl sm:text-5xl md:text-6xl sm:mb-6">🤖</div>
+            <h1 className="mb-4 text-2xl font-bold text-white sm:text-3xl lg:text-4xl font-display">
               AI Resume Generator
             </h1>
-            <p className="text-gray-400 text-lg mb-8">
+            <p className="mb-6 text-base text-gray-400 sm:text-lg sm:mb-8">
               Our AI will analyze your profile and create an ATS-optimized resume with:
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-left">
+            <div className="grid grid-cols-1 gap-4 mb-6 text-left sm:grid-cols-2 sm:mb-8">
               <div className="glass-dark p-4 rounded-lg">
                 <div className="text-2xl mb-2">✨</div>
                 <h3 className="text-white font-semibold mb-1">Professional Summary</h3>
@@ -84,11 +84,11 @@ const ResumeGenerator = () => {
             <button
               onClick={generateResume}
               disabled={loading}
-              className="bg-dark-hover border border-dark-border text-white px-12 py-4 rounded-lg font-bold text-lg hover:bg-dark-card transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 text-base font-bold text-white transition duration-200 border bg-dark-hover border-dark-border rounded-lg hover:bg-dark-card disabled:opacity-50 disabled:cursor-not-allowed sm:px-12 sm:py-4 sm:text-lg"
             >
               {loading ? (
                 <>
-                  <span className="inline-block animate-spin mr-2">⏳</span>
+                  <span className="inline-block mr-2 animate-spin">⏳</span>
                   Generating Resume...
                 </>
               ) : (
@@ -96,16 +96,16 @@ const ResumeGenerator = () => {
               )}
             </button>
 
-            <p className="text-gray-500 text-sm mt-4">
+            <p className="mt-4 text-xs text-gray-500 sm:text-sm">
               This process takes about 10-15 seconds
             </p>
           </div>
         </div>
 
         {/* Tips Section */}
-        <div className="glass mt-8 p-6 rounded-2xl">
-          <h3 className="text-xl font-bold text-white mb-4">💡 Tips for Best Results</h3>
-          <ul className="text-gray-400 space-y-2">
+        <div className="p-4 mt-6 glass sm:p-6 sm:mt-8 rounded-2xl">
+          <h3 className="mb-3 text-lg font-bold text-white sm:text-xl sm:mb-4">💡 Tips for Best Results</h3>
+          <ul className="space-y-2 text-sm text-gray-400 sm:text-base">
             <li className="flex items-start">
               <span className="mr-2">•</span>
               <span>Make sure you&apos;ve completed your profile with all relevant information</span>

@@ -54,26 +54,26 @@ const ResumePreview = () => {
   }
 
   return (
-    <div className="min-h-screen px-4 py-8 bg-dark-bg sm:px-6 lg:px-8">
+    <div className="min-h-screen px-4 py-6 bg-dark-bg sm:px-6 sm:py-8 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header Actions */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col items-start gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
           <button
             onClick={() => navigate('/dashboard')}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 transition bg-dark-surface border border-dark-border rounded-lg hover:bg-dark-hover"
+            className="inline-flex items-center px-3 py-2 text-xs font-medium text-gray-300 transition border bg-dark-surface border-dark-border rounded-lg hover:bg-dark-hover sm:px-4 sm:py-2 sm:text-sm"
           >
             ← Back to Dashboard
           </button>
-          <div className="flex gap-3">
+          <div className="flex w-full gap-2 sm:w-auto sm:gap-3">
             <button
               onClick={downloadPDF}
-              className="px-5 py-2 text-sm font-medium text-white transition bg-dark-hover border border-dark-border rounded-lg hover:bg-dark-card focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-dark-bg"
+              className="flex-1 px-4 py-2 text-xs font-medium text-white transition border bg-dark-hover border-dark-border rounded-lg hover:bg-dark-card focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-dark-bg sm:flex-none sm:px-5 sm:py-2 sm:text-sm"
             >
               Download PDF
             </button>
             <button
               onClick={() => navigate('/generate-resume')}
-              className="px-5 py-2 text-sm font-medium text-white transition bg-dark-hover border border-dark-border rounded-lg hover:bg-dark-card focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-dark-bg"
+              className="flex-1 px-4 py-2 text-xs font-medium text-white transition border bg-dark-hover border-dark-border rounded-lg hover:bg-dark-card focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-dark-bg sm:flex-none sm:px-5 sm:py-2 sm:text-sm"
             >
               Regenerate
             </button>
@@ -82,7 +82,7 @@ const ResumePreview = () => {
 
         {/* Resume Preview Container - A4 Style */}
         <div className="mx-auto max-w-[850px] bg-white shadow-lg rounded-sm overflow-hidden">
-          <div className="px-12 py-10">
+          <div className="px-6 py-8 sm:px-10 md:px-12 sm:py-10">
             {/* AI Enhancement Badge */}
             {resume && (resume.enhancedProjects || resume.enhancedExperience) && (
               <div className="px-4 py-3 mb-8 border-l-4 border-indigo-500 rounded-r-md bg-indigo-50 print:hidden">
@@ -101,11 +101,11 @@ const ResumePreview = () => {
             {resume && (
               <>
                 {/* Header Section */}
-                <header className="pb-6 mb-8 text-center border-b-2 border-gray-900">
-                  <h1 className="mb-2 text-4xl font-bold tracking-tight text-gray-900">
+                <header className="pb-6 mb-6 text-center border-b-2 border-gray-900 sm:pb-6 sm:mb-8">
+                  <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
                     {resume.contactInfo?.fullName || resume.profile?.fullName || 'Your Name'}
                   </h1>
-                  <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-600">
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-gray-600 sm:gap-3 sm:text-sm">
                     {(resume.contactInfo?.email || resume.profile?.email) && (
                       <a 
                         href={`mailto:${resume.contactInfo?.email || resume.profile?.email}`}

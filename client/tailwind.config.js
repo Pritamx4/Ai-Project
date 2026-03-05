@@ -14,7 +14,8 @@ export default {
         'dark-border': 'rgba(255, 255, 255, 0.1)',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Orbitron', 'sans-serif'],
+        display: ['Bruno Ace SC', 'Orbitron', 'sans-serif'],
       },
       backgroundImage: {
         'dark-gradient': 'linear-gradient(to bottom right, #0a0a0a, #1a1a1a)',

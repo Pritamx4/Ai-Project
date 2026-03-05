@@ -172,12 +172,12 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-6 bg-dark-bg container-padding sm:py-12">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Complete Your Profile</h1>
-          <p className="text-gray-400">Fill in your details to generate an amazing resume and portfolio</p>
+        <div className="mb-6 text-center sm:mb-8">
+          <h1 className="mb-2 text-2xl font-bold text-white sm:text-3xl lg:text-4xl font-display">Complete Your Profile</h1>
+          <p className="text-sm sm:text-base text-gray-400">Fill in your details to generate an amazing resume and portfolio</p>
         </div>
 
         {/* Messages */}
