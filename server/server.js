@@ -30,10 +30,7 @@ app.use((req, res, next) => {
 
 // Database connection
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ai-resume-builder', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ai-resume-builder')
   .then(() => console.log('✅ MongoDB Connected Successfully'))
   .catch((err) => {
     console.error('❌ MongoDB Connection Error:', err);
@@ -56,8 +53,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
+// 404 handler - must be last route
+app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 

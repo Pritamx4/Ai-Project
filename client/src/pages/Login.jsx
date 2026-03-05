@@ -38,25 +38,25 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center px-4">
-      <div className="max-w-md w-full">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
+      <div className="w-full max-w-md">
         {/* Back to Home */}
         <Link
           to="/"
-          className="text-white hover:text-gray-300 mb-8 inline-flex items-center"
+          className="inline-flex items-center mb-8 text-white hover:text-gray-300"
         >
           ← Back to Home
         </Link>
 
         {/* Login Card */}
-        <div className="glass p-8 rounded-2xl mt-4">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Welcome Back!</h2>
+        <div className="p-8 mt-4 glass rounded-2xl">
+          <div className="mb-8 text-center">
+            <h2 className="mb-2 text-3xl font-bold text-white">Welcome Back!</h2>
             <p className="text-gray-300">Login to continue building your future</p>
           </div>
 
           {error && (
-            <div className="bg-red-500 bg-opacity-20 border border-red-500 text-red-200 px-4 py-3 rounded-lg mb-4">
+            <div className="px-4 py-3 mb-4 text-red-200 bg-red-500 border border-red-500 rounded-lg bg-opacity-20">
               {error}
             </div>
           )}
@@ -64,7 +64,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-300">
                 Email Address
               </label>
               <input
@@ -74,14 +74,14 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white bg-opacity-10 border border-gray-400 border-opacity-30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 text-white placeholder-gray-400 bg-white border border-gray-400 rounded-lg bg-opacity-10 border-opacity-30 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Enter your email"
               />
             </div>
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-300">
                 Password
               </label>
               <input
@@ -91,7 +91,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white bg-opacity-10 border border-gray-400 border-opacity-30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 text-white placeholder-gray-400 bg-white border border-gray-400 rounded-lg bg-opacity-10 border-opacity-30 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Enter your password"
               />
             </div>
@@ -100,7 +100,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 font-semibold text-white transition duration-200 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
@@ -110,7 +110,7 @@ const Login = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-300">
               Don&apos;t have an account?{' '}
-              <Link to="/register" className="text-indigo-400 hover:text-indigo-300 font-semibold">
+              <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
                 Sign up
               </Link>
             </p>

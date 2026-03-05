@@ -86,14 +86,13 @@ const profileSchema = new mongoose.Schema({
 });
 
 // Update isComplete status based on filled fields
-profileSchema.pre('save', function (next) {
+profileSchema.pre('save', function () {
   const requiredFields = ['fullName', 'email', 'targetJobRole'];
   const hasRequiredFields = requiredFields.every(field => this[field]);
   const hasSkills = this.skills && this.skills.length > 0;
   const hasEducation = this.education && this.education.length > 0;
   
   this.isComplete = hasRequiredFields && hasSkills && hasEducation;
-  next();
 });
 
 module.exports = mongoose.model('Profile', profileSchema);
