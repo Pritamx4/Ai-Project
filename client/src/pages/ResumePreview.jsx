@@ -30,7 +30,7 @@ const ResumePreview = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
+      <div className="flex items-center justify-center min-h-screen bg-dark-bg">
         <div className="text-2xl text-white">Loading resume...</div>
       </div>
     );
@@ -38,13 +38,13 @@ const ResumePreview = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
+      <div className="flex items-center justify-center min-h-screen px-4 bg-dark-bg">
         <div className="max-w-md p-8 text-center glass rounded-2xl">
           <div className="mb-4 text-6xl">📄</div>
           <h2 className="mb-4 text-2xl font-bold text-white">{error}</h2>
           <button
             onClick={() => navigate('/generate-resume')}
-            className="px-6 py-3 font-semibold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-700"
+            className="px-6 py-3 font-semibold text-white transition bg-dark-hover border border-dark-border rounded-lg hover:bg-dark-card"
           >
             Generate Resume
           </button>
@@ -54,26 +54,26 @@ const ResumePreview = () => {
   }
 
   return (
-    <div className="min-h-screen px-4 py-8 bg-gray-100 sm:px-6 lg:px-8">
+    <div className="min-h-screen px-4 py-8 bg-dark-bg sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header Actions */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/dashboard')}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 transition bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 transition bg-dark-surface border border-dark-border rounded-lg hover:bg-dark-hover"
           >
             ← Back to Dashboard
           </button>
           <div className="flex gap-3">
             <button
               onClick={downloadPDF}
-              className="px-5 py-2 text-sm font-medium text-white transition bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="px-5 py-2 text-sm font-medium text-white transition bg-dark-hover border border-dark-border rounded-lg hover:bg-dark-card focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
               Download PDF
             </button>
             <button
               onClick={() => navigate('/generate-resume')}
-              className="px-5 py-2 text-sm font-medium text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="px-5 py-2 text-sm font-medium text-white transition bg-dark-hover border border-dark-border rounded-lg hover:bg-dark-card focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
               Regenerate
             </button>

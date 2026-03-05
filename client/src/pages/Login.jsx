@@ -38,12 +38,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-dark-bg">
       <div className="w-full max-w-md">
         {/* Back to Home */}
         <Link
           to="/"
-          className="inline-flex items-center mb-8 text-white hover:text-gray-300"
+          className="inline-flex items-center mb-8 text-gray-300 hover:text-white"
         >
           ← Back to Home
         </Link>
@@ -52,7 +52,7 @@ const Login = () => {
         <div className="p-8 mt-4 glass rounded-2xl">
           <div className="mb-8 text-center">
             <h2 className="mb-2 text-3xl font-bold text-white">Welcome Back!</h2>
-            <p className="text-gray-300">Login to continue building your future</p>
+            <p className="text-gray-400">Login to continue building your future</p>
           </div>
 
           {error && (
@@ -64,7 +64,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-300">
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-400">
                 Email Address
               </label>
               <input
@@ -74,14 +74,14 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 text-white placeholder-gray-400 bg-white border border-gray-400 rounded-lg bg-opacity-10 border-opacity-30 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 text-white placeholder-gray-500 bg-dark-surface border border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                 placeholder="Enter your email"
               />
             </div>
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-300">
+              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-400">
                 Password
               </label>
               <input
@@ -91,7 +91,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 text-white placeholder-gray-400 bg-white border border-gray-400 rounded-lg bg-opacity-10 border-opacity-30 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 text-white placeholder-gray-500 bg-dark-surface border border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                 placeholder="Enter your password"
               />
             </div>
@@ -100,7 +100,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 font-semibold text-white transition duration-200 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 font-semibold text-white transition duration-200 rounded-lg bg-dark-hover border border-dark-border hover:bg-dark-card disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
@@ -108,9 +108,9 @@ const Login = () => {
 
           {/* Register Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               Don&apos;t have an account?{' '}
-              <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
+              <Link to="/register" className="font-semibold text-gray-300 hover:text-white">
                 Sign up
               </Link>
             </p>

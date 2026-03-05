@@ -7,11 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#6366f1',
-        secondary: '#8b5cf6',
+        'dark-bg': '#0a0a0a',
+        'dark-surface': '#111111',
+        'dark-card': '#1a1a1a',
+        'dark-hover': '#222222',
+        'dark-border': 'rgba(255, 255, 255, 0.1)',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+      },
+      backgroundImage: {
+        'dark-gradient': 'linear-gradient(to bottom right, #0a0a0a, #1a1a1a)',
       },
     },
   },

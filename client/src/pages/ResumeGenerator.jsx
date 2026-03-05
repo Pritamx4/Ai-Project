@@ -27,11 +27,11 @@ const ResumeGenerator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-dark-bg py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <button
           onClick={() => navigate('/dashboard')}
-          className="text-white hover:text-gray-300 mb-8 inline-flex items-center"
+          className="text-gray-300 hover:text-white mb-8 inline-flex items-center"
         >
           ← Back to Dashboard
         </button>
@@ -42,7 +42,7 @@ const ResumeGenerator = () => {
             <h1 className="text-4xl font-bold text-white mb-4">
               AI Resume Generator
             </h1>
-            <p className="text-gray-300 text-lg mb-8">
+            <p className="text-gray-400 text-lg mb-8">
               Our AI will analyze your profile and create an ATS-optimized resume with:
             </p>
 
@@ -50,22 +50,22 @@ const ResumeGenerator = () => {
               <div className="glass-dark p-4 rounded-lg">
                 <div className="text-2xl mb-2">✨</div>
                 <h3 className="text-white font-semibold mb-1">Professional Summary</h3>
-                <p className="text-gray-400 text-sm">AI-crafted summary highlighting your strengths</p>
+                <p className="text-gray-500 text-sm">AI-crafted summary highlighting your strengths</p>
               </div>
               <div className="glass-dark p-4 rounded-lg">
                 <div className="text-2xl mb-2">🎯</div>
                 <h3 className="text-white font-semibold mb-1">ATS Keywords</h3>
-                <p className="text-gray-400 text-sm">Optimized keywords for applicant tracking systems</p>
+                <p className="text-gray-500 text-sm">Optimized keywords for applicant tracking systems</p>
               </div>
               <div className="glass-dark p-4 rounded-lg">
                 <div className="text-2xl mb-2">📝</div>
                 <h3 className="text-white font-semibold mb-1">Enhanced Descriptions</h3>
-                <p className="text-gray-400 text-sm">Improved project and work descriptions</p>
+                <p className="text-gray-500 text-sm">Improved project and work descriptions</p>
               </div>
               <div className="glass-dark p-4 rounded-lg">
                 <div className="text-2xl mb-2">💼</div>
                 <h3 className="text-white font-semibold mb-1">Professional Format</h3>
-                <p className="text-gray-400 text-sm">Clean, modern layout preferred by recruiters</p>
+                <p className="text-gray-500 text-sm">Clean, modern layout preferred by recruiters</p>
               </div>
             </div>
 
@@ -84,7 +84,7 @@ const ResumeGenerator = () => {
             <button
               onClick={generateResume}
               disabled={loading}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-12 py-4 rounded-lg font-bold text-lg hover:from-indigo-700 hover:to-purple-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-dark-hover border border-dark-border text-white px-12 py-4 rounded-lg font-bold text-lg hover:bg-dark-card transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -96,7 +96,7 @@ const ResumeGenerator = () => {
               )}
             </button>
 
-            <p className="text-gray-400 text-sm mt-4">
+            <p className="text-gray-500 text-sm mt-4">
               This process takes about 10-15 seconds
             </p>
           </div>
@@ -105,7 +105,7 @@ const ResumeGenerator = () => {
         {/* Tips Section */}
         <div className="glass mt-8 p-6 rounded-2xl">
           <h3 className="text-xl font-bold text-white mb-4">💡 Tips for Best Results</h3>
-          <ul className="text-gray-300 space-y-2">
+          <ul className="text-gray-400 space-y-2">
             <li className="flex items-start">
               <span className="mr-2">•</span>
               <span>Make sure you&apos;ve completed your profile with all relevant information</span>

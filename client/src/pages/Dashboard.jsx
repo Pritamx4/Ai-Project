@@ -31,14 +31,14 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center">
+      <div className="min-h-screen bg-dark-bg flex items-center justify-center">
         <div className="text-white text-2xl">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
+    <div className="min-h-screen bg-dark-bg">
       {/* Navigation Bar */}
       <nav className="glass-dark backdrop-blur-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,10 +47,10 @@ const Dashboard = () => {
               <h1 className="text-2xl font-bold text-white">AI Resume Builder</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-white">Welcome, {user?.fullName}</span>
+              <span className="text-gray-300">Welcome, {user?.fullName}</span>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition"
+                className="bg-dark-hover border border-dark-border text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-dark-card transition"
               >
                 Logout
               </button>
@@ -66,7 +66,7 @@ const Dashboard = () => {
           <h2 className="text-3xl font-bold text-white mb-4">
             🎉 Welcome to Your Dashboard!
           </h2>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-400 text-lg">
             Let&apos;s create an amazing resume and portfolio that showcases your skills and experience.
           </p>
         </div>
@@ -80,10 +80,10 @@ const Dashboard = () => {
           >
             <div className="text-5xl mb-4">👤</div>
             <h3 className="text-2xl font-bold text-white mb-2">Complete Profile</h3>
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               Add your personal information, skills, experience, and education.
             </p>
-            <div className="mt-4 text-indigo-400 font-semibold">
+            <div className="mt-4 text-gray-300 font-semibold">
               {profile?.isComplete ? '✓ Completed' : '→ Get Started'}
             </div>
           </Link>
@@ -95,10 +95,10 @@ const Dashboard = () => {
           >
             <div className="text-5xl mb-4">💻</div>
             <h3 className="text-2xl font-bold text-white mb-2">Connect GitHub</h3>
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               Link your GitHub account to automatically fetch your projects.
             </p>
-            <div className="mt-4 text-indigo-400 font-semibold">
+            <div className="mt-4 text-gray-300 font-semibold">
               {profile?.githubUsername ? '✓ Connected' : '→ Connect Now'}
             </div>
           </Link>
@@ -110,10 +110,10 @@ const Dashboard = () => {
           >
             <div className="text-5xl mb-4">📄</div>
             <h3 className="text-2xl font-bold text-white mb-2">Generate Resume</h3>
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               Use AI to create an ATS-optimized professional resume.
             </p>
-            <div className="mt-4 text-indigo-400 font-semibold">
+            <div className="mt-4 text-gray-300 font-semibold">
               → Generate Now
             </div>
           </Link>
@@ -125,10 +125,10 @@ const Dashboard = () => {
           >
             <div className="text-5xl mb-4">🌐</div>
             <h3 className="text-2xl font-bold text-white mb-2">View Portfolio</h3>
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               Check out your automatically generated portfolio website.
             </p>
-            <div className="mt-4 text-indigo-400 font-semibold">
+            <div className="mt-4 text-gray-300 font-semibold">
               → View Portfolio
             </div>
           </Link>
@@ -140,10 +140,10 @@ const Dashboard = () => {
           >
             <div className="text-5xl mb-4">👁️</div>
             <h3 className="text-2xl font-bold text-white mb-2">Resume Preview</h3>
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               View and download your generated resume as PDF.
             </p>
-            <div className="mt-4 text-indigo-400 font-semibold">
+            <div className="mt-4 text-gray-300 font-semibold">
               → Preview Resume
             </div>
           </Link>
@@ -155,10 +155,10 @@ const Dashboard = () => {
           >
             <div className="text-5xl mb-4">⚙️</div>
             <h3 className="text-2xl font-bold text-white mb-2">Settings</h3>
-            <p className="text-gray-300">
+            <p className="text-gray-400">
               Manage your account settings and preferences.
             </p>
-            <div className="mt-4 text-indigo-400 font-semibold">
+            <div className="mt-4 text-gray-300 font-semibold">
               → Manage Settings
             </div>
           </Link>
@@ -170,19 +170,19 @@ const Dashboard = () => {
             <div className="text-3xl font-bold text-white mb-2">
               {profile?.projects?.length || 0}
             </div>
-            <div className="text-gray-300">Projects Added</div>
+            <div className="text-gray-400">Projects Added</div>
           </div>
           <div className="glass-dark p-6 rounded-xl">
             <div className="text-3xl font-bold text-white mb-2">
               {profile?.skills?.length || 0}
             </div>
-            <div className="text-gray-300">Skills Listed</div>
+            <div className="text-gray-400">Skills Listed</div>
           </div>
           <div className="glass-dark p-6 rounded-xl">
             <div className="text-3xl font-bold text-white mb-2">
               {profile?.experience?.length || 0}
             </div>
-            <div className="text-gray-300">Work Experiences</div>
+            <div className="text-gray-400">Work Experiences</div>
           </div>
         </div>
       </div>
