@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { profileService } from '../services/api';
+import { profileService, githubService } from '../services/api';
 
 const ProfileForm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [githubLoading, setGithubLoading] = useState(false);
+  const [githubSuccess, setGithubSuccess] = useState('');
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -115,6 +117,39 @@ const ProfileForm = () => {
   const removeObjectField = (index, field) => {
     const newArray = formData[field].filter((_, i) => i !== index);
     setFormData({ ...formData, [field]: newArray });
+  };
+
+  const handleConnectGithub = async () => {
+    if (!formData.githubUsername) {
+      setError('Please enter your GitHub username first');
+      return;
+    }
+
+    setGithubLoading(true);
+    setError('');
+    setGithubSuccess('');
+
+    try {
+      const response = await githubService.connectGithub(formData.githubUsername);
+      
+      // Update form with the new profile data including auto-populated projects
+      if (response.profile) {
+        setFormData(response.profile);
+      }
+      
+      setGithubSuccess(
+        `✅ GitHub connected! ${response.projectsAdded} project(s) automatically added from your repositories.`
+      );
+      
+      // Refresh profile data
+      setTimeout(() => {
+        fetchProfile();
+      }, 1000);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to connect GitHub account');
+    } finally {
+      setGithubLoading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -226,14 +261,28 @@ const ProfileForm = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">GitHub Username</label>
-                <input
-                  type="text"
-                  name="githubUsername"
-                  value={formData.githubUsername}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-400 border-opacity-30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="johndoe"
-                />
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    name="githubUsername"
+                    value={formData.githubUsername}
+                    onChange={handleChange}
+                    className="flex-1 px-4 py-2 bg-white bg-opacity-10 border border-gray-400 border-opacity-30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="johndoe"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleConnectGithub}
+                    disabled={githubLoading || !formData.githubUsername}
+                    className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  >
+                    {githubLoading ? '🔄 Connecting...' : '🔗 Auto-Import'}
+                  </button>
+                </div>
+                {githubSuccess && (
+                  <p className="mt-2 text-sm text-green-300">{githubSuccess}</p>
+                )}
+                <p className="mt-1 text-xs text-gray-400">Click Auto-Import to fetch your repos and populate projects automatically</p>
               </div>
             </div>
           </div>

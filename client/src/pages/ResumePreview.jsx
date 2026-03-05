@@ -159,24 +159,20 @@ const ResumePreview = () => {
                 </div>
               )}
 
-              {/* Projects */}
-              {resume.profile?.projects && resume.profile.projects.length > 0 && (
+              {/* Projects - AI Enhanced */}
+              {resume.enhancedProjects && resume.enhancedProjects.length > 0 && (
                 <div className="mb-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-3 pb-2 border-b-2 border-indigo-600">
                     Projects
                   </h2>
-                  {resume.profile.projects.map((project, index) => (
+                  {resume.enhancedProjects.map((project, index) => (
                     <div key={index} className="mb-6">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-xl font-semibold text-gray-900">{project.name}</h3>
-                        {(project.url || project.githubUrl) && (
-                          <div className="text-sm text-indigo-600">
-                            {project.url && <span>🔗 Live</span>}
-                            {project.githubUrl && <span className="ml-2">💻 GitHub</span>}
-                          </div>
-                        )}
                       </div>
-                      <p className="text-gray-700 mb-2">{project.description}</p>
+                      <p className="text-gray-700 mb-2 leading-relaxed">
+                        {project.aiEnhancedDescription || project.originalDescription}
+                      </p>
                       {project.technologies && (
                         <p className="text-gray-600 text-sm">
                           <strong>Technologies:</strong> {project.technologies}

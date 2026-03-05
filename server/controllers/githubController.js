@@ -69,7 +69,7 @@ exports.fetchRepos = async (req, res) => {
 };
 
 /**
- * Connect GitHub account
+ * Connect GitHub account and auto-populate projects
  * POST /api/github/connect
  */
 exports.connectGithub = async (req, res) => {
@@ -81,21 +81,102 @@ exports.connectGithub = async (req, res) => {
     }
 
     // Verify GitHub user exists
+    let githubUser;
     try {
-      await axios.get(`https://api.github.com/users/${githubUsername}`);
+      const userResponse = await axios.get(`https://api.github.com/users/${githubUsername}`, {
+        headers: process.env.GITHUB_TOKEN
+          ? { Authorization: `token ${process.env.GITHUB_TOKEN}` }
+          : {},
+      });
+      githubUser = userResponse.data;
     } catch (error) {
       return res.status(404).json({ message: 'GitHub user not found' });
     }
 
-    // Update profile
-    const profile = await Profile.findOneAndUpdate(
-      { userId: req.userId },
-      { githubUsername },
-      { new: true }
+    // Fetch user's repositories
+    const reposResponse = await axios.get(
+      `https://api.github.com/users/${githubUsername}/repos`,
+      {
+        params: {
+          sort: 'updated',
+          per_page: 100,
+          type: 'owner', // Only repos owned by user
+        },
+        headers: process.env.GITHUB_TOKEN
+          ? { Authorization: `token ${process.env.GITHUB_TOKEN}` }
+          : {},
+      }
     );
+
+    // Filter repos: not forked, has description, preferably with homepage
+    const eligibleRepos = reposResponse.data
+      .filter(repo => !repo.fork && !repo.private)
+      .map(repo => ({
+        name: repo.name,
+        description: repo.description || '',
+        url: repo.html_url,
+        homepage: repo.homepage || '',
+        language: repo.language || 'N/A',
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        updatedAt: repo.updated_at,
+        hasHomepage: !!repo.homepage,
+      }))
+      // Sort by: has homepage first, then by stars, then by updated date
+      .sort((a, b) => {
+        if (a.hasHomepage && !b.hasHomepage) return -1;
+        if (!a.hasHomepage && b.hasHomepage) return 1;
+        if (b.stars !== a.stars) return b.stars - a.stars;
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      })
+      .slice(0, 10); // Get top 10 repos
+
+    // Convert repos to project format
+    const autoProjects = eligibleRepos.map(repo => ({
+      name: repo.name
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' '), // Convert "my-project" to "My Project"
+      description: repo.description || `A ${repo.language || 'software'} project`,
+      technologies: repo.language || 'Various technologies',
+      url: repo.homepage || '', // Live link
+      githubUrl: repo.url,
+    }));
+
+    // Save GitHub repos to profile
+    const githubRepos = eligibleRepos.map(repo => ({
+      name: repo.name,
+      description: repo.description,
+      url: repo.url,
+      language: repo.language,
+      stars: repo.stars,
+      forks: repo.forks,
+    }));
+
+    // Get current profile
+    const profile = await Profile.findOne({ userId: req.userId });
+    
+    if (!profile) {
+      return res.status(404).json({ message: 'Profile not found' });
+    }
+
+    // Merge auto projects with existing projects (avoid duplicates)
+    const existingProjectNames = profile.projects.map(p => p.name.toLowerCase());
+    const newProjects = autoProjects.filter(
+      p => !existingProjectNames.includes(p.name.toLowerCase())
+    );
+
+    // Update profile
+    profile.githubUsername = githubUsername;
+    profile.githubRepos = githubRepos;
+    profile.projects = [...profile.projects, ...newProjects];
+    
+    await profile.save();
 
     res.json({
       message: 'GitHub account connected successfully',
+      projectsAdded: newProjects.length,
+      projects: newProjects,
       profile,
     });
   } catch (error) {

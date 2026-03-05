@@ -4,45 +4,48 @@ const Profile = require('../models/Profile');
 const axios = require('axios');
 
 /**
- * Call OpenAI API to generate content
+ * Call Gemini API to generate content
  */
 const callOpenAI = async (prompt) => {
   try {
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY; // Using same env variable for Gemini key
 
     if (!apiKey) {
-      console.warn('OpenAI API key not configured. Using mock AI response.');
+      console.warn('Gemini API key not configured. Using mock AI response.');
       return generateMockAIResponse(prompt);
     }
 
+    // Gemini API endpoint - Using correct v1 API
     const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
-        model: 'gpt-3.5-turbo',
-        messages: [
+        contents: [
           {
-            role: 'system',
-            content: 'You are a professional resume writer and career coach. Generate concise, professional, and ATS-optimized content.',
-          },
-          {
-            role: 'user',
-            content: prompt,
+            parts: [
+              {
+                text: `You are a professional resume writer and career coach. Generate concise, professional, and ATS-optimized content.\n\n${prompt}`,
+              },
+            ],
           },
         ],
-        max_tokens: 500,
-        temperature: 0.7,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 500,
+        },
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
         },
       }
     );
 
-    return response.data.choices[0].message.content.trim();
+    // Extract text from Gemini's response format
+    const generatedText = response.data.candidates[0].content.parts[0].text.trim();
+    return generatedText;
   } catch (error) {
-    console.error('OpenAI API error:', error.response?.data || error.message);
+    console.error('Gemini API error:', error.response?.data || error.message);
+    console.warn('Falling back to mock AI response.');
     return generateMockAIResponse(prompt);
   }
 };
@@ -88,9 +91,37 @@ exports.generateResume = async (req, res) => {
     Experience: ${profile.experience.length} positions
     Education: ${profile.education.map(e => e.degree).join(', ')}
     
-    Create a compelling 3-4 sentence professional summary that highlights key strengths and is ATS-optimized.`;
+    Create a compelling 3-4 sentence professional summary that highlights key strengths and is ATS-optimized. Be specific and impactful.`;
 
     const aiSummary = await callOpenAI(summaryPrompt);
+
+    // Enhance work experience descriptions
+    const enhancedExperience = await Promise.all(
+      profile.experience.map(async (exp) => {
+        if (!exp.title || !exp.company) return exp;
+
+        const expPrompt = `Enhance this work experience description for a resume:
+        Position: ${exp.title}
+        Company: ${exp.company}
+        Original Description: ${exp.description || 'No description provided'}
+        
+        Create a professional, achievement-focused description with 3-4 bullet points that:
+        - Starts with strong action verbs
+        - Includes measurable achievements where possible
+        - Highlights technical skills and impact
+        - Is ATS-optimized
+        
+        Format as bullet points with • prefix.`;
+
+        const enhancedDescription = await callOpenAI(expPrompt);
+
+        return {
+          ...exp.toObject(),
+          description: enhancedDescription, // Replace with enhanced version
+          originalDescription: exp.description, // Keep original for reference
+        };
+      })
+    );
 
     // Enhance project descriptions
     const enhancedProjects = await Promise.all(
@@ -99,10 +130,14 @@ exports.generateResume = async (req, res) => {
 
         const projectPrompt = `Enhance this project description for a resume:
         Project: ${project.name}
-        Description: ${project.description || 'No description'}
+        Original Description: ${project.description || 'No description'}
         Technologies: ${project.technologies}
         
-        Create a concise, impactful description (2-3 sentences) that highlights achievements and technical skills.`;
+        Create a concise, impactful description (2-3 sentences) that:
+        - Highlights the problem solved and impact
+        - Showcases technical skills and architecture
+        - Emphasizes results and achievements
+        - Uses professional, action-oriented language`;
 
         const enhancedDescription = await callOpenAI(projectPrompt);
 
@@ -126,8 +161,12 @@ exports.generateResume = async (req, res) => {
     // Create or update resume
     let resume = await Resume.findOne({ userId: req.userId });
 
+    // Prepare enhanced profile with AI-improved experience
+    const enhancedProfile = profile.toObject();
+    enhancedProfile.experience = enhancedExperience;
+
     if (resume) {
-      resume.profile = profile.toObject();
+      resume.profile = enhancedProfile;
       resume.aiSummary = aiSummary;
       resume.enhancedProjects = enhancedProjects.filter(p => p !== null);
       resume.atsKeywords = [...new Set(keywords)];
@@ -136,7 +175,7 @@ exports.generateResume = async (req, res) => {
     } else {
       resume = new Resume({
         userId: req.userId,
-        profile: profile.toObject(),
+        profile: enhancedProfile,
         aiSummary,
         enhancedProjects: enhancedProjects.filter(p => p !== null),
         atsKeywords: [...new Set(keywords)],
