@@ -2,6 +2,7 @@
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 const jwt = require('jsonwebtoken');
+const { sendWelcomeEmail } = require('../services/emailService');
 
 /**
  * Generate JWT token
@@ -51,6 +52,12 @@ exports.register = async (req, res) => {
 
     // Generate token
     const token = generateToken(user._id);
+
+    // Send welcome email (don't wait for it to complete)
+    sendWelcomeEmail(user.email, user.fullName).catch((error) => {
+      console.error('Failed to send welcome email:', error);
+      // Don't fail the registration if email fails
+    });
 
     res.status(201).json({
       message: 'User registered successfully',
